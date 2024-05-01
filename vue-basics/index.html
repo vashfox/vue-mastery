@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>VueJS Course</title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <p>Hey {{ fullName }}! I'm {{ age }} years old.</p>
+    <p>Hey {{ fullNameGetSet }}! I'm {{ age }} years old.</p>
+    <p>Today {{ now }}</p>
+    <small><a :href="url" target="_blank" >Google</a></small>
+    <br />
+    <a v-html="raw_url" class="text-sm"></a>
+    <br />
+    <label>First Name <input v-model="firstName"/></label>
+    <br />
+    <label>Midle Name <input @keyup.enter="updateMiddleName($event, 'Triggered MN')"/> then enter</label>
+    <br />
+    <label>Last Name <input v-model="lastName"/></label>
+    <br />
+    <label>Last Name <input :value="lastName" @input.prevent="updateLastName($event, 'Triggered LN')"/></label>
+    <br />
+    <label>Age <input v-model.lazy.number="age" type="number"/></label>
+    {{typeof age}}
+    <br/>
+    <button @click="onIncrement">+</button>
+    <button @click.ctrl="onDecrement">-</button>
+  </div>
+
+  <div id="app2" v-cloak>
+    <hr />
+
+    <select v-model="mode">
+      <option value="1">if</option>
+      <option value="2">elseif</option>
+      <option value="3">else</option>
+    </select>
+
+    <p v-if="mode == 1">SHOW THIS MESSAGE</p>
+    <template v-else-if="mode == 2">
+      <p>SHOW THIS MESSAGE 2</p>
+    </template>
+    <p v-else>SHOW THIS MESSAGE ELSE</p>
+    <i v-show="mode == 1">SHOWING</i>
+
+
+    <ul>
+      <li v-for="(bird, index) in birds" :key="bird"> {{ bird }}</li>
+    </ul>
+    <ul>
+      <li v-for="({name, age, fly}, index) in birdies" :key="name"> {{ name }}, {{ age }}, {{ fly ? 'Woosh':'boink' }}</li>
+    </ul>
+    <ul>
+      <li v-for="(bird, index) in birdies" :key="bird.name">
+        <span style="padding-right: 10px;" v-for="(value, key, indx) in bird" :key="indx">
+          {{key}} - {{ value }},
+        </span>
+        <input />
+      </li>
+    </ul>
+
+    <button @click="onMove">Next Please</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
